@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/account.schema.json",
+  "title": "Account",
+  "description": "A user-controlled wallet or venue account known to the toolkit. Never contains key material. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "accountId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "chain": {
+      "$ref": "common.schema.json#/$defs/ChainId"
+    },
+    "address": {
+      "$ref": "common.schema.json#/$defs/Address"
+    },
+    "kind": {
+      "enum": [
+        "wallet",
+        "venue_account"
+      ]
+    },
+    "custody": {
+      "const": "user",
+      "description": "Always 'user': the toolkit never custodies keys or funds."
+    },
+    "label": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "createdAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "accountId",
+    "chain",
+    "address",
+    "kind",
+    "custody"
+  ]
+}

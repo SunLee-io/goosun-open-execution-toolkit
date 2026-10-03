@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/common.schema.json",
+  "title": "Common definitions",
+  "description": "Shared definitions for the GOOSUN Open Execution Toolkit data model (v0 design spec).",
+  "$defs": {
+    "ChainId": {
+      "type": "string",
+      "description": "CAIP-2 style chain id.",
+      "examples": [
+        "solana:mainnet",
+        "solana:devnet",
+        "eip155:56",
+        "eip155:204"
+      ],
+      "pattern": "^(solana:(mainnet|devnet|testnet)|eip155:[0-9]+)$"
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 UTC timestamp."
+    },
+    "Id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "Hash": {
+      "type": "string",
+      "description": "Hex (0x…) intent hash, SHA-256 over the canonical JSON of the ExecutionIntent without status fields.",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "Address": {
+      "type": "string",
+      "description": "Chain-native address: base58 public key (Solana) or 0x-prefixed 20-byte hex (EVM).",
+      "minLength": 32,
+      "maxLength": 64
+    },
+    "AssetRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Asset identity. Native assets use kind=native.",
+      "properties": {
+        "chain": {
+          "$ref": "#/$defs/ChainId"
+        },
+        "kind": {
+          "enum": [
+            "native",
+            "spl",
+            "spl-token-2022",
+            "bep20",
+            "erc20",
+            "offchain"
+          ]
+        },
+        "address": {
+          "$ref": "#/$defs/Address",
+          "description": "Mint (Solana) or token contract (EVM); omitted for native."
+        },
+        "symbol": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 36
+        }
+      },
+      "required": [
+        "chain",
+        "kind",
+        "decimals"
+      ]
+    },
+    "Amount": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Exact amount in base units. raw is an integer string; decimals scales it for display only.",
+      "properties": {
+        "raw": {
+          "type": "string",
+          "pattern": "^-?[0-9]+$"
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 36
+        }
+      },
+      "required": [
+        "raw",
+        "decimals"
+      ]
+    },
+    "Side": {
+      "enum": [
+        "BUY",
+        "SELL"
+      ]
+    },
+    "Mode": {
+      "enum": [
+        "PAPER",
+        "SHADOW",
+        "DEVNET",
+        "LIVE"
+      ],
+      "description": "PAPER: no chain access. SHADOW: real quotes + simulation, never signed. DEVNET: test networks. LIVE: mainnet, user-signed."
+    },
+    "ReasonCode": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{2,63}$",
+      "description": "Machine-readable reason code, see docs/risk-rules.md."
+    }
+  }
+}

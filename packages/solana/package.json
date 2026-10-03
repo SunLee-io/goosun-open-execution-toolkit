@@ -1,0 +1,8 @@
+{
+  "name": "@goosun/open-execution-solana",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Interface spec only — implementation is grant milestone work. Not published.",
+  "license": "Apache-2.0",
+  "types": "src/index.ts"
+}

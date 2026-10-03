@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "0.1.0",
+  "venueId": "pancakeswap",
+  "chain": "eip155:204",
+  "kind": "DEX_AMM",
+  "capabilities": {
+    "QUOTE": { "state": "DESIGN", "evidence": "docs/bnb/dex-route-adapter.md" },
+    "ROUTE": { "state": "DESIGN", "evidence": "docs/bnb/dex-route-adapter.md" },
+    "BUILD_UNSIGNED_TX": { "state": "DESIGN" },
+    "ALLOWANCE_READ": { "state": "DESIGN", "evidence": "docs/bnb/token-allowance-normalization.md" },
+    "RECEIPT_NORMALIZE": { "state": "DESIGN", "evidence": "docs/bnb/receipt-normalization.md" }
+  },
+  "reviewedAt": "2026-10-03T00:00:00Z"
+}

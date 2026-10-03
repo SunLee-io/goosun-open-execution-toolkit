@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "0.1.0",
+  "intentId": "example-bnb-0001",
+  "intentHash": "0xac85db375c5a27c78584d79542efb4a3b7f80acf44f4cff44e9d3e26467fe02e",
+  "agentId": "reference-agent",
+  "accountId": "user-wallet-1",
+  "chain": "eip155:56",
+  "mode": "SHADOW",
+  "action": "SWAP",
+  "sellAsset": { "chain": "eip155:56", "kind": "native", "symbol": "BNB", "decimals": 18 },
+  "buyAsset": { "chain": "eip155:56", "kind": "bep20", "address": "0x00000000000000000000000000000000000E0001", "symbol": "EXAMPLE-USD", "decimals": 18 },
+  "sellAmount": { "raw": "50000000000000000", "decimals": 18 },
+  "maxSlippageBps": 50,
+  "rationale": "Illustrative intent: swap 0.05 BNB into a stable token.",
+  "route": {
+    "chosen": "route-a",
+    "candidates": [
+      { "routeId": "route-a", "venueId": "pancakeswap", "expectedOut": { "raw": "29900000000000000000", "decimals": 18 }, "minOut": { "raw": "29750500000000000000", "decimals": 18 }, "priceImpactBps": 3, "hops": 1, "quotedAt": "2026-10-03T12:00:00Z" },
+      { "routeId": "route-b", "venueId": "pancakeswap", "expectedOut": { "raw": "29880000000000000000", "decimals": 18 }, "minOut": { "raw": "29730600000000000000", "decimals": 18 }, "priceImpactBps": 2, "hops": 2, "quotedAt": "2026-10-03T12:00:00Z" }
+    ],
+    "reason": "route-a: higher net output after gas; route-b rejected (lower net output, 2 hops)"
+  },
+  "status": "ALLOWED",
+  "createdAt": "2026-10-03T12:00:00Z"
+}

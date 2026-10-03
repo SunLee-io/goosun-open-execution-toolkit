@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/fill.schema.json",
+  "title": "Fill",
+  "description": "An executed fill, normalized from a Solana transaction or an EVM receipt. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "fillId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "orderId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "chain": {
+      "$ref": "common.schema.json#/$defs/ChainId"
+    },
+    "txId": {
+      "type": "string",
+      "description": "Solana signature or EVM tx hash.",
+      "maxLength": 128
+    },
+    "block": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Slot (Solana) or block number (EVM)."
+    },
+    "sold": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "bought": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "sellAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "buyAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "networkFee": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "venueFee": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "executedAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "fillId",
+    "orderId",
+    "chain",
+    "txId",
+    "block",
+    "sold",
+    "bought",
+    "sellAsset",
+    "buyAsset",
+    "networkFee",
+    "executedAt"
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/pnl.schema.json",
+  "title": "PnL",
+  "description": "Profit and loss for an account over a period in a quote asset. Null components mean 'unknown', never zero. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "accountId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "quoteAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "periodStart": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    },
+    "periodEnd": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    },
+    "realized": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Amount"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "unrealized": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Amount"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "fees": {
+      "oneOf": [
+        {
+          "$ref": "common.schema.json#/$defs/Amount"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "method": {
+      "enum": [
+        "FIFO",
+        "AVERAGE_COST"
+      ]
+    },
+    "valuationSource": {
+      "type": "string",
+      "maxLength": 128
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "accountId",
+    "quoteAsset",
+    "periodStart",
+    "periodEnd",
+    "realized",
+    "unrealized",
+    "fees",
+    "method"
+  ]
+}

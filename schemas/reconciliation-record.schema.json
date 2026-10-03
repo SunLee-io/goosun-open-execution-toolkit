@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/reconciliation-record.schema.json",
+  "title": "ReconciliationRecord",
+  "description": "Comparison of a signed intent with what landed on-chain. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "recordId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "intentHash": {
+      "$ref": "common.schema.json#/$defs/Hash"
+    },
+    "orderId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "chain": {
+      "$ref": "common.schema.json#/$defs/ChainId"
+    },
+    "txId": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "block": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "onchainStatus": {
+      "enum": [
+        "SUCCESS",
+        "FAILED",
+        "DROPPED",
+        "EXPIRED",
+        "NOT_FOUND"
+      ]
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sold": {
+          "$ref": "common.schema.json#/$defs/Amount"
+        },
+        "minBought": {
+          "$ref": "common.schema.json#/$defs/Amount"
+        }
+      },
+      "required": [
+        "sold",
+        "minBought"
+      ]
+    },
+    "actual": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sold": {
+          "$ref": "common.schema.json#/$defs/Amount"
+        },
+        "bought": {
+          "$ref": "common.schema.json#/$defs/Amount"
+        },
+        "networkFee": {
+          "$ref": "common.schema.json#/$defs/Amount"
+        }
+      }
+    },
+    "result": {
+      "enum": [
+        "MATCH",
+        "WITHIN_TOLERANCE",
+        "MISMATCH",
+        "NOT_EXECUTED",
+        "PENDING"
+      ]
+    },
+    "mismatches": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ReasonCode"
+      }
+    },
+    "duplicateSubmission": {
+      "const": false,
+      "description": "Must always be false; any duplicate is an incident."
+    },
+    "reconciledAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "recordId",
+    "intentHash",
+    "orderId",
+    "chain",
+    "onchainStatus",
+    "expected",
+    "result",
+    "duplicateSubmission",
+    "reconciledAt"
+  ]
+}

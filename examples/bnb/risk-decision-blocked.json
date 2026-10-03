@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "0.1.0",
+  "decisionId": "example-dec-bnb-0001",
+  "intentHash": "0xac85db375c5a27c78584d79542efb4a3b7f80acf44f4cff44e9d3e26467fe02e",
+  "decision": "BLOCK",
+  "policyId": "example-policy",
+  "policyVersion": "0.1.0",
+  "checks": [
+    { "rule": "KILL_SWITCH", "result": "PASS" },
+    { "rule": "GAS_CAP", "result": "PASS", "observed": "1gwei", "limit": "3gwei" },
+    { "rule": "APPROVAL", "result": "FAIL", "observed": "requested=UNLIMITED", "limit": "allowUnlimitedApproval=false", "reason": "UNLIMITED_APPROVAL_BLOCKED" }
+  ],
+  "reasons": ["UNLIMITED_APPROVAL_BLOCKED"],
+  "evaluatedAt": "2026-10-03T12:00:01Z",
+  "expiresAt": "2026-10-03T12:00:16Z"
+}

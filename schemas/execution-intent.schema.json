@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/execution-intent.schema.json",
+  "title": "ExecutionIntent",
+  "description": "A structured trade intent produced by an AI agent (untrusted input) and carried through the pipeline. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "intentId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "intentHash": {
+      "$ref": "common.schema.json#/$defs/Hash"
+    },
+    "agentId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "accountId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "chain": {
+      "$ref": "common.schema.json#/$defs/ChainId"
+    },
+    "mode": {
+      "$ref": "common.schema.json#/$defs/Mode"
+    },
+    "action": {
+      "enum": [
+        "SWAP"
+      ]
+    },
+    "sellAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "buyAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "sellAmount": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "maxSlippageBps": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5000
+    },
+    "rationale": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Agent's free-text rationale; recorded, never executed."
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "chosen": {
+          "$ref": "common.schema.json#/$defs/Id"
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "routeId": {
+                "$ref": "common.schema.json#/$defs/Id"
+              },
+              "venueId": {
+                "$ref": "common.schema.json#/$defs/Id"
+              },
+              "expectedOut": {
+                "$ref": "common.schema.json#/$defs/Amount"
+              },
+              "minOut": {
+                "$ref": "common.schema.json#/$defs/Amount"
+              },
+              "priceImpactBps": {
+                "type": "integer"
+              },
+              "estimatedFee": {
+                "$ref": "common.schema.json#/$defs/Amount"
+              },
+              "hops": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "quotedAt": {
+                "$ref": "common.schema.json#/$defs/Timestamp"
+              },
+              "expiresAt": {
+                "$ref": "common.schema.json#/$defs/Timestamp"
+              }
+            },
+            "required": [
+              "routeId",
+              "venueId",
+              "expectedOut",
+              "minOut",
+              "quotedAt"
+            ]
+          }
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 256
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "PROPOSED",
+        "BLOCKED",
+        "ALLOWED",
+        "UNSIGNED_RETURNED",
+        "SIGNED",
+        "SUBMITTED",
+        "RECONCILED",
+        "EXPIRED"
+      ]
+    },
+    "createdAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "intentId",
+    "agentId",
+    "accountId",
+    "chain",
+    "mode",
+    "action",
+    "sellAsset",
+    "buyAsset",
+    "sellAmount",
+    "maxSlippageBps",
+    "status",
+    "createdAt"
+  ]
+}

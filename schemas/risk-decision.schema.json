@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/risk-decision.schema.json",
+  "title": "RiskDecision",
+  "description": "Result of the pre-trade risk gate for one ExecutionIntent. Builders require decision=ALLOW, matching intentHash and unexpired expiresAt. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "decisionId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "intentHash": {
+      "$ref": "common.schema.json#/$defs/Hash"
+    },
+    "decision": {
+      "enum": [
+        "ALLOW",
+        "BLOCK"
+      ]
+    },
+    "policyId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "policyVersion": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rule": {
+            "enum": [
+              "KILL_SWITCH",
+              "SCHEMA",
+              "CHAIN_ALLOWED",
+              "ACCOUNT_OWNERSHIP",
+              "BALANCE_SUFFICIENT",
+              "SLIPPAGE",
+              "STALE_QUOTE",
+              "BLOCKHASH_VALIDITY",
+              "FEE",
+              "GAS_CAP",
+              "APPROVAL",
+              "POSITION_LIMIT",
+              "NOTIONAL_LIMIT",
+              "DAILY_EXPOSURE",
+              "LEVERAGE_LIMIT",
+              "CIRCUIT_BREAKER",
+              "TOKEN_EXTENSION",
+              "SIMULATION_MATCH"
+            ]
+          },
+          "result": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "MISSING_INPUT"
+            ]
+          },
+          "observed": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "limit": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "reason": {
+            "$ref": "common.schema.json#/$defs/ReasonCode"
+          }
+        },
+        "required": [
+          "rule",
+          "result"
+        ]
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ReasonCode"
+      }
+    },
+    "evaluatedAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    },
+    "expiresAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "decisionId",
+    "intentHash",
+    "decision",
+    "policyId",
+    "checks",
+    "reasons",
+    "evaluatedAt",
+    "expiresAt"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "BLOCK"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reasons": {
+            "type": "array",
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

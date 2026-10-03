@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "0.1.0",
+  "intentId": "example-sol-0001",
+  "intentHash": "0x45e33ce6fecdb31adc4c54ae166cc2a2c24f6fe298d255ce839cbcc8d1913873",
+  "agentId": "reference-agent",
+  "accountId": "user-wallet-1",
+  "chain": "solana:devnet",
+  "mode": "SHADOW",
+  "action": "SWAP",
+  "sellAsset": { "chain": "solana:devnet", "kind": "native", "symbol": "SOL", "decimals": 9 },
+  "buyAsset": { "chain": "solana:devnet", "kind": "spl", "address": "EXAMPLEMintAddress11111111111111111111111111", "symbol": "EXAMPLE-USD", "decimals": 6 },
+  "sellAmount": { "raw": "100000000", "decimals": 9 },
+  "maxSlippageBps": 50,
+  "rationale": "Illustrative intent: rebalance 0.1 SOL into a stable token.",
+  "status": "PROPOSED",
+  "createdAt": "2026-10-03T12:00:00Z"
+}

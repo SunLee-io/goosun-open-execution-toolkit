@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/connection.schema.json",
+  "title": "Connection",
+  "description": "An RPC / API connection used to read chain or venue state, with health information. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "connectionId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "chain": {
+      "$ref": "common.schema.json#/$defs/ChainId"
+    },
+    "provider": {
+      "type": "string",
+      "maxLength": 64,
+      "description": "Provider name (no credentials, no API keys)."
+    },
+    "role": {
+      "enum": [
+        "read",
+        "simulate",
+        "broadcast"
+      ]
+    },
+    "health": {
+      "enum": [
+        "HEALTHY",
+        "DEGRADED",
+        "STALE_HEAD",
+        "WRONG_CHAIN",
+        "DOWN",
+        "UNKNOWN"
+      ]
+    },
+    "latestBlock": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Latest slot (Solana) or block number (EVM) observed."
+    },
+    "latencyMs": {
+      "type": "number",
+      "minimum": 0
+    },
+    "checkedAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "connectionId",
+    "chain",
+    "provider",
+    "role",
+    "health",
+    "checkedAt"
+  ]
+}

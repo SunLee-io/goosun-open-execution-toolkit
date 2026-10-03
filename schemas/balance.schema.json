@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/balance.schema.json",
+  "title": "Balance",
+  "description": "A balance of one asset in one account, read at a known slot / block. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "accountId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "asset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "amount": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "tokenAccount": {
+      "$ref": "common.schema.json#/$defs/Address",
+      "description": "Solana associated token account, if any."
+    },
+    "extensions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Token-2022 extensions detected (e.g. transferFeeConfig)."
+    },
+    "observedAtBlock": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "observedAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    },
+    "source": {
+      "$ref": "common.schema.json#/$defs/Id"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "accountId",
+    "asset",
+    "amount",
+    "observedAt",
+    "source"
+  ]
+}

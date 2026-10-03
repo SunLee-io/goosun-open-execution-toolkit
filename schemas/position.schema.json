@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/position.schema.json",
+  "title": "Position",
+  "description": "Net position in an asset for an account, derived from balances and fills. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "accountId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "asset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "quantity": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "costBasis": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "quoteAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "notionalQuote": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "leverage": {
+      "type": "number",
+      "minimum": 0,
+      "description": "1 for spot; >1 only for leveraged venues."
+    },
+    "updatedAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "accountId",
+    "asset",
+    "quantity",
+    "updatedAt"
+  ]
+}

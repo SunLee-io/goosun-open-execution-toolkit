@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "0.1.0",
+  "decisionId": "example-dec-sol-0001",
+  "intentHash": "0x45e33ce6fecdb31adc4c54ae166cc2a2c24f6fe298d255ce839cbcc8d1913873",
+  "decision": "BLOCK",
+  "policyId": "example-policy",
+  "policyVersion": "0.1.0",
+  "checks": [
+    { "rule": "KILL_SWITCH", "result": "PASS" },
+    { "rule": "SCHEMA", "result": "PASS" },
+    { "rule": "STALE_QUOTE", "result": "FAIL", "observed": "slotDrift=41", "limit": "maxSlotDrift=25", "reason": "SLOT_DRIFT_EXCEEDED" },
+    { "rule": "SLIPPAGE", "result": "PASS", "observed": "50bps", "limit": "100bps" },
+    { "rule": "FEE", "result": "MISSING_INPUT", "reason": "FEE_UNKNOWN" }
+  ],
+  "reasons": ["SLOT_DRIFT_EXCEEDED", "FEE_UNKNOWN"],
+  "evaluatedAt": "2026-10-03T12:00:01Z",
+  "expiresAt": "2026-10-03T12:00:16Z"
+}

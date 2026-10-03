@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/venue-capability.schema.json",
+  "title": "VenueCapability",
+  "description": "What a venue / route adapter can do on a chain, with evidence state. Registration grants no authority. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "venueId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "chain": {
+      "$ref": "common.schema.json#/$defs/ChainId"
+    },
+    "kind": {
+      "enum": [
+        "DEX_AGGREGATOR",
+        "DEX_AMM",
+        "WALLET"
+      ]
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "state": {
+            "enum": [
+              "DESIGN",
+              "IMPLEMENTED",
+              "TESTED",
+              "DEVNET_VERIFIED",
+              "MAINNET_VERIFIED",
+              "DISABLED"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "description": "Keys such as QUOTE, ROUTE, BUILD_UNSIGNED_TX, SIMULATE, ALLOWANCE_READ, RECEIPT_NORMALIZE."
+    },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "common.schema.json#/$defs/Address"
+          },
+          "verifiedAtBlock": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "role",
+          "address"
+        ]
+      }
+    },
+    "reviewedAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "venueId",
+    "chain",
+    "kind",
+    "capabilities",
+    "reviewedAt"
+  ]
+}

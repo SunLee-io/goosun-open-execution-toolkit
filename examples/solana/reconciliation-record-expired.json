@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "0.1.0",
+  "recordId": "example-rec-sol-0001",
+  "intentHash": "0x45e33ce6fecdb31adc4c54ae166cc2a2c24f6fe298d255ce839cbcc8d1913873",
+  "orderId": "example-order-sol-0001",
+  "chain": "solana:devnet",
+  "onchainStatus": "EXPIRED",
+  "expected": { "sold": { "raw": "100000000", "decimals": 9 }, "minBought": { "raw": "14900000", "decimals": 6 } },
+  "result": "NOT_EXECUTED",
+  "mismatches": ["BLOCKHASH_EXPIRED"],
+  "duplicateSubmission": false,
+  "reconciledAt": "2026-10-03T12:02:00Z"
+}

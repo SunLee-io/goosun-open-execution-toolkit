@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/SunLee-io/goosun-open-execution-toolkit/schemas/order.schema.json",
+  "title": "Order",
+  "description": "A swap / order derived from an ExecutionIntent after routing. (v0 design spec — not yet used by released code.)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "orderId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "intentHash": {
+      "$ref": "common.schema.json#/$defs/Hash"
+    },
+    "accountId": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "chain": {
+      "$ref": "common.schema.json#/$defs/ChainId"
+    },
+    "venue": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "side": {
+      "$ref": "common.schema.json#/$defs/Side"
+    },
+    "sellAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "buyAsset": {
+      "$ref": "common.schema.json#/$defs/AssetRef"
+    },
+    "sellAmount": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "minBuyAmount": {
+      "$ref": "common.schema.json#/$defs/Amount"
+    },
+    "status": {
+      "enum": [
+        "CREATED",
+        "UNSIGNED_RETURNED",
+        "SIGNED",
+        "SUBMITTED",
+        "CONFIRMED",
+        "FAILED",
+        "EXPIRED",
+        "AMBIGUOUS",
+        "RECONCILED"
+      ]
+    },
+    "createdAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    },
+    "updatedAt": {
+      "$ref": "common.schema.json#/$defs/Timestamp"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "orderId",
+    "intentHash",
+    "accountId",
+    "chain",
+    "venue",
+    "sellAsset",
+    "buyAsset",
+    "sellAmount",
+    "minBuyAmount",
+    "status",
+    "createdAt"
+  ]
+}
